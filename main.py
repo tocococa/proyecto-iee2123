@@ -6,12 +6,30 @@ def to_bits(path_in, path_out):
     path_out = os.path.join(os.getcwd(), path_out)
     with open(path_in, 'rb') as file:
         line = file.readline()
+        bytes_file = line
         files_out = {x: [] for x in range(8)}
+        time = 0
         for i in range(0, len(bytes_file), 9):
             chunk = bytes_file[i:i+8]
             for k in range(len(chunk)):
-                files_out[k].append(chunk[k])
+                if k == 1:
+                    out = str(time*100)+'us 5V\n'
+                else:
+                    out = str(time*100)+'us 0V\n'
+                files_out[k].append(out)
+            time += 1
     for k in files_out.keys():
         path_file = path_out + f'{k}b.txt'
-        with open(path_file + f'{k}b.txt', 'wb') as file:
-            file.write(*files_out[k])
+        
+        with open(path_file, 'a') as file:
+            for j in files_out[k]:
+                file.write(j)
+            
+
+
+if __name__ == '__main__':
+    try:
+        to_bits('tripulantes/tripulante1.txt', 'tripulantes/out_t1/')
+        to_bits('tripulantes/tripulante2.txt', 'tripulantes/out_t2/')
+    except IOError as err:
+        print(f"Error: {err}")

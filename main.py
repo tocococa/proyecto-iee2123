@@ -10,23 +10,21 @@ def to_bits(path_in, path_out):
         files_out = {x: [] for x in range(8)}
         time = 0
         for i in range(0, len(bytes_file), 9):
+            # leer en grupos de 9 caracetres (byte+space)
             chunk = bytes_file[i:i+8]
-            print(chunk)
             for k in range(len(chunk)):
+                # revisar cada bit del byte
                 if chunk[k] == '1':
-                    print(chunk[k])
                     out = str(time*100)+'us 5V\n'
                 elif chunk[k] == '0':
                     out = str(time*100)+'us 0V\n'
                 files_out[k].append(out)
             time += 1
     for k in files_out.keys():
-        path_file = path_out + f'{k}b.txt'
-        
+        path_file = path_out + f'{k}b.txt'  
         with open(path_file, 'a') as file:
             for j in files_out[k]:
-                file.write(j)
-            
+                file.write(j)     
 
 
 if __name__ == '__main__':

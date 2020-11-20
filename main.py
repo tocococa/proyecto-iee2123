@@ -4,17 +4,19 @@ import os
 def to_bits(path_in, path_out):
     path_in = os.path.join(os.getcwd(), path_in)
     path_out = os.path.join(os.getcwd(), path_out)
-    with open(path_in, 'rb') as file:
+    with open(path_in, 'r') as file:
         line = file.readline()
         bytes_file = line
         files_out = {x: [] for x in range(8)}
         time = 0
         for i in range(0, len(bytes_file), 9):
             chunk = bytes_file[i:i+8]
+            print(chunk)
             for k in range(len(chunk)):
-                if k == 1:
+                print(chunk[k])
+                if chunk[k] == '1':
                     out = str(time*100)+'us 5V\n'
-                else:
+                elif  chunk[k] == '0':
                     out = str(time*100)+'us 0V\n'
                 files_out[k].append(out)
             time += 1

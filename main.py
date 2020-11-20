@@ -13,10 +13,10 @@ def to_bits(path_in, path_out):
             chunk = bytes_file[i:i+8]
             print(chunk)
             for k in range(len(chunk)):
-                print(chunk[k])
                 if chunk[k] == '1':
+                    print(chunk[k])
                     out = str(time*100)+'us 5V\n'
-                elif  chunk[k] == '0':
+                elif chunk[k] == '0':
                     out = str(time*100)+'us 0V\n'
                 files_out[k].append(out)
             time += 1

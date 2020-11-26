@@ -11,12 +11,12 @@ def to_bits(path_in, path_out):
         time = 0
         for i in range(0, len(bytes_file), 9):
             # leer en grupos de 9 caracetres (byte+space)
-            chunk = bytes_file[i:i+8]
-            for k in range(len(chunk)):
+            byte = bytes_file[i:i+8]
+            for k in range(len(byte)):
                 # revisar cada bit del byte
-                if chunk[k] == '1':
+                if byte[k] == '1':
                     out = str(time*100)+'us 5V\n'
-                elif chunk[k] == '0':
+                elif byte[k] == '0':
                     out = str(time*100)+'us 0V\n'
                 files_out[k].append(out)
             time += 1

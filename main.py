@@ -21,7 +21,7 @@ def to_bits(path_in, path_out):
                 files_out[k].append(out)
             time += 1
     for k in files_out.keys():
-        path_file = path_out + f'{k}b.txt'
+        path_file = path_out + f'{k+1}b.txt'
         with open(path_file, 'a') as file:
             for j in files_out[k]:
                 file.write(j)
